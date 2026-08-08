@@ -1,0 +1,357 @@
+MAVERO — SETUP & DEPLOYMENT GUIDE (PLAIN ENGLISH)
+===================================================
+
+This guide assumes NO technical background beyond being able to copy/paste
+commands into a terminal and click around a couple of websites. Every step
+is numbered. Do them in order. If a step says "skip if you already did
+this," it means exactly that — nothing later depends on doing it twice.
+
+You will need, in total, four free accounts:
+  1. A Firebase project (Google)      — handles login accounts + the database
+  2. A Cloudinary account              — stores all product/uploaded images
+  3. A GitHub account                  — hosts the code
+  4. A Vercel account                  — hosts the live website
+
+Nothing here costs money. Every service used is on its free tier.
+
+
+PART 1 — RUNNING MAVERO ON YOUR OWN COMPUTER
+=============================================
+
+1.1  Install prerequisites
+---------------------------
+- Install Node.js (version 18 or later) from https://nodejs.org — pick the
+  "LTS" button. This also installs "npm", which you'll use below.
+- Install a code editor if you don't have one — VS Code
+  (https://code.visualstudio.com) is a good free choice.
+
+1.2  Get the code and install dependencies
+--------------------------------------------
+Open a terminal inside the Mavero project folder and run:
+
+    npm install
+
+This downloads every library the project depends on. It can take a few
+minutes the first time. You'll see a folder called `node_modules` appear —
+that's normal, don't touch it.
+
+1.3  Create your environment file
+------------------------------------
+The app reads all of its secret keys (Firebase, Cloudinary) from a
+file called `.env`, which is never committed to git (it's in `.gitignore`
+on purpose — it's yours only). Create it by copying the template:
+
+    cp .env.example .env
+
+You'll fill in the actual values in Parts 2 and 3 below. Until you do,
+the app will still start — it shows a yellow "configuration incomplete"
+banner instead of crashing, so you can look around the UI immediately.
+
+1.4  Start the app
+---------------------
+    npm run dev
+
+Open the address it prints (normally http://localhost:5173) in your
+browser. Leave this terminal window running while you work — it
+auto-reloads the page whenever you save a file.
+
+
+PART 2 — FIREBASE SETUP (LOGIN ACCOUNTS + DATABASE)
+=====================================================
+
+2.1  Create the project
+---------------------------
+1. Go to https://console.firebase.google.com and sign in with a Google
+   account.
+2. Click "Add project," give it a name (e.g. "mavero-shop"), and finish the
+   wizard (Google Analytics is optional — you can skip it).
+
+2.2  Turn on sign-in methods
+--------------------------------
+1. In the left sidebar: Build → Authentication → Get started.
+2. Under the "Sign-in method" tab, enable **Email/Password**.
+3. Also enable **Google** as a sign-in provider (pick a support email when
+   asked).
+
+2.3  Create the database
+----------------------------
+1. In the left sidebar: Build → Firestore Database → Create database.
+2. Choose "Start in production mode" (not test mode — Mavero ships its own
+   security rules, see step 2.5).
+3. Pick any region close to you and confirm.
+
+2.4  Copy your config values into .env
+-------------------------------------------
+1. Click the gear icon (top left, next to "Project Overview") → Project
+   settings.
+2. Scroll to "Your apps," click the `</>` (web) icon to register a new web
+   app, give it any nickname, and skip the Firebase Hosting checkbox (we
+   are NOT using Firebase Hosting — Mavero deploys to Vercel instead).
+3. Firebase shows you a `firebaseConfig` object with six values. Copy each
+   one into the matching line of your `.env` file:
+
+     apiKey             -> VITE_FIREBASE_API_KEY
+     authDomain         -> VITE_FIREBASE_AUTH_DOMAIN
+     projectId          -> VITE_FIREBASE_PROJECT_ID
+     storageBucket      -> VITE_FIREBASE_STORAGE_BUCKET
+     messagingSenderId  -> VITE_FIREBASE_MESSAGING_SENDER_ID
+     appId              -> VITE_FIREBASE_APP_ID
+
+4. Restart `npm run dev` (stop it with Ctrl+C, run it again) so the new
+   values are picked up. The yellow configuration banner should disappear.
+
+2.5  Publish the security rules (important — don't skip)
+---------------------------------------------------------------
+The UI hides admin buttons from regular customers, but that's just a
+convenience — the real lock is a file called `firestore.rules` in this
+project, which tells Firebase's servers what every type of user is and
+isn't allowed to read or write, no matter what the browser sends. If you
+don't publish it, your database is wide open to anyone.
+
+1. In Firebase console: Build → Firestore Database → Rules tab.
+2. Open `firestore.rules` from this project in your code editor, select
+   all, copy it.
+3. Paste it into the Firebase console's rules editor, replacing what's
+   there, and click "Publish."
+
+2.5b  Create the required database indexes (also easy to miss)
+-----------------------------------------------------------------------
+A few pages — a customer's own order history, a product's reviews — ask
+Firestore for "all the orders belonging to this one customer, newest
+first" (or reviews for one product, newest first). Filtering by one field
+AND sorting by a different field at the same time needs an index Firestore
+doesn't create automatically, and skipping this step doesn't error
+obviously — it shows up as a generic-looking error where you'd expect an
+empty "no orders yet" page instead. If you ever see a page claim it
+"couldn't load" or "check your connection" when you're sure you're online
+and the data should be empty (not broken), this is almost always why.
+
+Two ways to fix it:
+
+OPTION A — click the link Firestore gives you (easiest, no setup)
+1. Open your browser's DevTools console (F12) on the page showing the
+   error.
+2. Find the red Firestore error — it contains a direct link starting with
+   `https://console.firebase.google.com/.../firestore/indexes?create_...`.
+3. Click it, then click "Create index" on the page it opens. It takes a
+   minute or two to finish building; refresh the app page once it's done.
+
+OPTION B — deploy every index this project needs at once (if you have
+   firebase-tools installed, see Part 4 below)
+1. Run:
+
+       firebase deploy --only firestore:indexes
+
+   This reads `firestore.indexes.json` from this repo (already has every
+   index the app needs defined) and creates all of them in one go —
+   useful so you don't hit this same surprise page by page.
+
+2.6  Promote your own account to admin
+--------------------------------------------
+There's no backend in this project, so there's no way to create a
+ready-made "admin" account — every account starts as a normal customer,
+and the very first admin has to be promoted by hand, once, in the Firebase
+console. Two ways to do the first part (creating the account):
+
+OPTION A — one command, one console click
+1. In `.env`, fill in `ADMIN_BOOTSTRAP_EMAIL` and `ADMIN_BOOTSTRAP_PASSWORD`
+   with the email/password you want your admin account to use.
+2. Run:
+
+       npm run create-admin
+
+   This creates the account (or signs into it if it already exists) and
+   prints a direct link straight to that account's document in the
+   Firebase console.
+3. Open the printed link, click the `role` field, change it from
+   `customer` to `admin`, and save.
+4. Log into the app with that email/password — `/admin` now works, and an
+   "Admin Panel" link appears directly in the navbar.
+
+OPTION A+ — one command, fully automated (no console click at all)
+Same as Option A, but the role-flip is also automated, using the Firebase
+**Admin SDK** — a different, more powerful credential than everything else
+in this guide, because it's allowed to bypass `firestore.rules` entirely
+(that's the only way anything can set `role: admin` without you clicking
+it yourself in the console). Treat this credential like a master password
+for your whole database.
+
+1. In the Firebase console: gear icon → Project settings → Service
+   accounts tab → "Generate new private key." This downloads a `.json`
+   file — do not commit it or share it anywhere.
+2. Open that JSON file and copy two values into `.env`:
+     `client_email` -> `FIREBASE_ADMIN_CLIENT_EMAIL`
+     `private_key`  -> `FIREBASE_ADMIN_PRIVATE_KEY` (paste it exactly as
+       it appears, including the `\n` sequences and the
+       `-----BEGIN/END PRIVATE KEY-----` lines — the script converts those
+       `\n`s back into real newlines itself).
+3. Fill in `ADMIN_BOOTSTRAP_EMAIL` / `ADMIN_BOOTSTRAP_PASSWORD` as in
+   Option A.
+4. Run `npm run create-admin` — this time it prints "promoted to admin"
+   with nothing left to do. Log in and go to `/admin`.
+
+You can delete the two `FIREBASE_ADMIN_*` values from `.env` afterward if
+you'd rather not have that credential sitting around once you're done
+provisioning admins — `npm run create-admin` falls back to Option A's
+one-click link whenever they're absent.
+
+OPTION B — fully by hand
+1. Sign up for a normal account inside the running app (the Signup page).
+2. In Firebase console: Firestore Database → Data tab → `users` collection.
+3. Find the document whose ID matches your account (you can check your own
+   ID by opening Authentication → Users and matching the email).
+4. Click into that document, find the `role` field, change its value from
+   `customer` to `admin`, and save.
+5. Refresh the Mavero app in your browser (log out/in if needed) — a link
+   to `/admin` now works and the full admin dashboard is available.
+
+Why Option A needs a console click at all: Mavero's *live app* deliberately
+has no backend/Admin SDK (see README.md) — nothing the browser does is
+allowed to set `role: admin` in the database directly, and that's exactly
+what stops a malicious signed-up customer from making themselves an admin.
+Option A+ doesn't contradict that; it adds one extra, separate, opt-in
+credential (a service account) to a local script that only you run on your
+own machine — the live deployed app still never has, and never needs,
+that power.
+
+
+PART 3 — CLOUDINARY SETUP (IMAGE HOSTING)
+==============================================
+
+Every product photo, category photo, and any image an admin uploads goes
+to Cloudinary, not into the codebase — this keeps the app fast and the
+git repository small.
+
+1. Create a free account at https://cloudinary.com.
+2. On the dashboard, find your **Cloud Name** near the top — copy it into
+   `.env` as `VITE_CLOUDINARY_CLOUD_NAME`.
+3. Go to Settings (gear icon) → Upload tab → scroll to "Upload presets" →
+   Add upload preset.
+4. Set "Signing Mode" to **Unsigned**. This lets the browser upload images
+   directly to Cloudinary without needing a backend server to sign the
+   request — the trade-off is documented in README.md, and is standard
+   practice for projects without a dedicated backend.
+5. (Optional but recommended) Under "Folder," set it to `products` so
+   uploads land in one place instead of Cloudinary's root.
+6. Save the preset, copy its name into `.env` as
+   `VITE_CLOUDINARY_UPLOAD_PRESET`.
+7. Restart `npm run dev`.
+
+
+PART 4 — RUNNING THE SECURITY RULES TEST SUITE (OPTIONAL, FOR DEVELOPERS)
+===============================================================================
+
+This part is optional. It's for verifying — with real automated tests, not
+just reading the file — that `firestore.rules` actually blocks the things
+it claims to block (e.g. a regular customer cannot mark themselves as
+admin, cannot change another customer's order, cannot alter a product's
+price). Skip this part if you just want to run the store; it has no effect
+on the live app.
+
+4.1  One-time setup
+------------------------
+The test suite runs against a local Firebase "emulator" (a fake Firestore
+that runs on your own machine, so tests never touch your real data). The
+emulator requires Java to be installed.
+
+1. Install a Java runtime (JDK 11 or later). On Windows, the simplest
+   option is Eclipse Temurin: https://adoptium.net — download the
+   installer for your system and run it with default options.
+2. Confirm it worked by opening a new terminal and running:
+
+       java -version
+
+   You should see a version number, not "command not found."
+3. Install the Firebase CLI globally (only needed once per machine):
+
+       npm install -g firebase-tools
+
+4.2  Run the tests
+-----------------------
+From the project folder:
+
+    npm run test:rules
+
+This starts the local Firestore emulator, runs all 36 tests in
+`tests/firestore.rules.test.js` against it (covering every collection:
+users, products, categories, coupons, orders, reviews, subscribers,
+contact messages), then shuts the emulator down. A pass looks like
+`36 passed`. If anything fails, the test output names exactly which rule
+and which scenario broke — cross-reference it with the matching `it(...)`
+block in that file and the relevant section of `firestore.rules`.
+
+You do not need to do this before deploying — it's a verification tool for
+whoever maintains the codebase, not a deployment requirement.
+
+
+PART 5 — DEPLOYING TO VERCEL (GOING LIVE)
+==============================================
+
+5.1  Push the code to GitHub
+----------------------------------
+1. Create a new, empty repository on https://github.com (don't initialize
+   it with a README — this project already has one).
+2. From the project folder, run:
+
+       git init
+       git add .
+       git commit -m "Initial commit"
+       git branch -M main
+       git remote add origin <the URL GitHub gave you>
+       git push -u origin main
+
+   (`.env` will NOT be pushed — it's listed in `.gitignore` on purpose, so
+   your secret keys never end up on GitHub.)
+
+5.2  Import the project into Vercel
+------------------------------------------
+1. Create a free account at https://vercel.com (you can sign up directly
+   with your GitHub account, which is the easiest path).
+2. Click "Add New" → "Project," and pick the GitHub repository you just
+   pushed.
+3. Vercel auto-detects this as a Vite project. Leave the build settings on
+   their defaults (build command `vite build`, output directory `dist`).
+4. Before clicking Deploy, open "Environment Variables" and add every
+   single line from `.env.example`, using the real values from your own
+   `.env` file (Vercel needs its own copy — it doesn't read your local
+   `.env` file).
+5. Click Deploy. After a minute or two you'll get a live URL that looks
+   like `mavero-yourname.vercel.app`.
+
+5.3  The one gotcha: authorize your live domain in Firebase
+------------------------------------------------------------------
+If you skip this step, sign-in and sign-up will silently fail on the live
+site (they'll keep working fine on localhost, which is what makes this
+confusing) — Firebase Authentication only allows requests from domains
+you've explicitly approved.
+
+1. In Firebase console: Build → Authentication → Settings tab → Authorized
+   domains.
+2. Click "Add domain" and paste your `*.vercel.app` URL from step 5.2 (and
+   any custom domain you attach later).
+3. Save. Sign-in on the live site now works.
+
+5.4  Post-deployment smoke test
+--------------------------------------
+Visit the live URL and manually check, in order:
+  - Home page loads, no yellow configuration banner.
+  - Sign up for a new account.
+  - Browse products, add one to the cart, apply a coupon if you created
+    one in the admin panel.
+  - Complete checkout with the dummy card form (any 16-digit Luhn-valid
+    number, any future expiry — see README.md for why there's no real
+    payment gateway).
+  - Log in as your admin account, confirm `/admin` loads and the order you
+    just placed appears in the Orders table.
+  - Toggle dark mode and switch languages (including Arabic/Urdu — check
+    the layout actually mirrors, not just the text) to confirm both
+    persist after a page refresh.
+
+
+THAT'S IT
+=========
+If something doesn't match this guide exactly (Firebase/Cloudinary
+occasionally move their menus around), the underlying idea stays the
+same: get each service's credentials into `.env`, publish
+`firestore.rules`, and authorize your domain. README.md has the shorter,
+more technical version of all of the above if you get stuck.

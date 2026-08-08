@@ -1,0 +1,136 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    function isAdmin() {
+      return isSignedIn() &&
+        exists(/databases/$(database)/documents/users/$(request.auth.uid)) &&
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
+    }
+
+    // ── users ────────────────────────────────────────────────
+    // Each user can read/update their own doc. Role field is
+    // immutable from the client — only an admin (via console or
+    // a trusted context) may change it.
+    match /users/{userId} {
+      allow read: if isOwner(userId) || isAdmin();
+      allow create: if isOwner(userId) &&
+        request.resource.data.role == 'customer';
+      allow update: if (isOwner(userId) &&
+          request.resource.data.role == resource.data.role) ||
+        isAdmin();
+      allow delete: if isAdmin();
+
+      // per-user cart, synced across devices
+      match /cart/{itemId} {
+        allow read, write: if isOwner(userId);
+      }
+
+      // per-user wishlist
+      match /wishlist/{itemId} {
+        allow read, write: if isOwner(userId);
+      }
+
+      // per-user saved addresses
+      match /addresses/{addressId} {
+        allow read, write: if isOwner(userId);
+      }
+    }
+
+    // ── products ─────────────────────────────────────────────
+    // Admins may write anything. A signed-in customer may ALSO update a
+    // product, but only as a side effect of placing an order — the write
+    // must touch nothing but stock/variants/soldCount, and stock may only
+    // go down, never up. This lets checkout decrement inventory directly
+    // from the client (there's no backend server in this stack) without
+    // opening the door to price/name tampering or restocking. It is not a
+    // full guarantee the decrement matches a real order — see README's
+    // security notes.
+    match /products/{productId} {
+      allow read: if true;
+      allow create, delete: if isAdmin();
+      allow update: if isAdmin() || isValidStockDecrement();
+    }
+
+    function isValidStockDecrement() {
+      let affected = request.resource.data.diff(resource.data).affectedKeys();
+      return isSignedIn() &&
+        affected.hasOnly(['stock', 'variants', 'soldCount']) &&
+        (!('stock' in affected) ||
+          request.resource.data.stock <= resource.data.stock);
+    }
+
+    // ── categories ───────────────────────────────────────────
+    match /categories/{categoryId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // ── coupons ──────────────────────────────────────────────
+    // Public read so checkout can validate a code client-side. A signed-in
+    // customer may increment usedCount by exactly 1 (as part of placing an
+    // order using that coupon); every other field is admin-only.
+    match /coupons/{couponId} {
+      allow read: if true;
+      allow create, delete: if isAdmin();
+      allow update: if isAdmin() || isValidCouponRedemption();
+    }
+
+    function isValidCouponRedemption() {
+      let affected = request.resource.data.diff(resource.data).affectedKeys();
+      return isSignedIn() &&
+        affected.hasOnly(['usedCount']) &&
+        request.resource.data.usedCount == resource.data.usedCount + 1;
+    }
+
+    // ── orders ───────────────────────────────────────────────
+    // A customer may create their own order and read it back.
+    // Only status/tracking fields may be updated, and only by
+    // an admin — customers cannot edit orders after placing them.
+    match /orders/{orderId} {
+      allow read: if isAdmin() ||
+        (isSignedIn() && resource.data.userId == request.auth.uid);
+      allow create: if isSignedIn() &&
+        request.resource.data.userId == request.auth.uid &&
+        request.resource.data.status == 'pending';
+      allow update: if isAdmin();
+      allow delete: if isAdmin();
+    }
+
+    // ── reviews ──────────────────────────────────────────────
+    // Anyone may read; only signed-in users may create a review
+    // under their own uid; only the author or an admin may
+    // delete (moderation).
+    match /reviews/{reviewId} {
+      allow read: if true;
+      allow create: if isSignedIn() &&
+        request.resource.data.userId == request.auth.uid;
+      allow update: if isSignedIn() && resource.data.userId == request.auth.uid;
+      allow delete: if isAdmin() ||
+        (isSignedIn() && resource.data.userId == request.auth.uid);
+    }
+
+    // ── subscribers (newsletter) ─────────────────────────────
+    match /subscribers/{subscriberId} {
+      allow read: if isAdmin();
+      allow create: if true;
+      allow update, delete: if isAdmin();
+    }
+
+    // ── contact messages ─────────────────────────────────────
+    match /contactMessages/{messageId} {
+      allow read: if isAdmin();
+      allow create: if true;
+      allow update, delete: if isAdmin();
+    }
+  }
+}

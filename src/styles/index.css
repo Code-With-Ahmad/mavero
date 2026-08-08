@@ -1,0 +1,119 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    --toast-bg: #ffffff;
+    --toast-color: #12151a;
+  }
+
+  html.dark {
+    --toast-bg: #1b1f26;
+    --toast-color: #faf7f0;
+  }
+
+  body {
+    @apply bg-ivory text-charcoal-700 dark:bg-charcoal-800 dark:text-ivory-100;
+    @apply font-sans antialiased transition-colors duration-300 ease-refined;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-serif text-charcoal-900 dark:text-ivory-100;
+  }
+
+  [lang="ar"] body,
+  [lang="ar"] h1,
+  [lang="ar"] h2,
+  [lang="ar"] h3,
+  [lang="ar"] h4,
+  [lang="ar"] h5,
+  [lang="ar"] h6 {
+    font-family: "Noto Naskh Arabic", serif;
+  }
+
+  /* Noto Nastaliq Urdu is a cursive, diagonally-stacking script whose
+     glyphs extend well beyond the normal em-box — Tailwind's default
+     (often line-height: 1) tight headings clip/overlap in Urdu even
+     though the same classes are fine for Latin/Naskh. Force generous
+     line-height whenever the page is in Urdu, overriding any
+     leading-* utility (this selector's specificity — attribute + tag —
+     already outranks a single utility class, no !important needed). */
+  [lang="ur"] body,
+  [lang="ur"] h1,
+  [lang="ur"] h2,
+  [lang="ur"] h3,
+  [lang="ur"] h4,
+  [lang="ur"] h5,
+  [lang="ur"] h6 {
+    font-family: "Noto Nastaliq Urdu", serif;
+    line-height: 1.9;
+  }
+
+  [lang="ur"] h1,
+  [lang="ur"] h2,
+  [lang="ur"] h3 {
+    line-height: 2.1;
+  }
+
+  /* Browsers' default stylesheet sets th { text-align: center } directly
+     on the element — an inherited text-start/text-align from an ancestor
+     (e.g. the table itself) never overrides that, since inheritance only
+     fills in a property with no explicitly specified value, and the UA
+     stylesheet counts as specified. Every admin table was relying on the
+     ancestor's text-start and rendering centered headers as a result. */
+  th {
+    text-align: start;
+  }
+
+  ::selection {
+    @apply bg-gold-300/50 text-charcoal-900;
+  }
+
+  :focus-visible {
+    @apply outline-none ring-2 ring-gold-500 ring-offset-2 ring-offset-ivory dark:ring-offset-charcoal-800;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-charcoal-200 dark:bg-charcoal-500 rounded-full;
+  }
+}
+
+@layer components {
+  .container-boutique {
+    @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+  }
+
+  .label-uppercase {
+    @apply text-xs font-medium uppercase tracking-widest2 text-charcoal-400 dark:text-ivory-300;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 bg-charcoal-800 px-6 py-3 text-sm font-medium uppercase tracking-wider text-ivory transition-colors duration-200 ease-refined hover:bg-gold-600 focus-visible:bg-gold-600 dark:bg-gold-500 dark:text-charcoal-900 dark:hover:bg-gold-400 disabled:cursor-not-allowed disabled:opacity-50;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 border border-charcoal-800 px-6 py-3 text-sm font-medium uppercase tracking-wider text-charcoal-800 transition-colors duration-200 ease-refined hover:border-gold-600 hover:text-gold-700 dark:border-ivory-200 dark:text-ivory-100 dark:hover:border-gold-400 dark:hover:text-gold-400 disabled:cursor-not-allowed disabled:opacity-50;
+  }
+
+  .input-field {
+    @apply w-full border border-charcoal-100 bg-ivory px-4 py-3 text-sm text-charcoal-800 placeholder:text-charcoal-300 transition-colors duration-200 ease-refined focus:border-gold-500 dark:border-charcoal-500 dark:bg-charcoal-700 dark:text-ivory-100 dark:placeholder:text-charcoal-300;
+  }
+
+  .card-surface {
+    @apply border border-charcoal-100 bg-ivory-50 dark:border-charcoal-500 dark:bg-charcoal-700;
+  }
+}

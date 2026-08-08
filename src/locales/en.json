@@ -1,0 +1,829 @@
+{
+  "common": {
+    "brand": "Mavero",
+    "loading": "Loading...",
+    "save": "Save",
+    "saving": "Saving...",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "add": "Add",
+    "remove": "Remove",
+    "close": "Close",
+    "search": "Search",
+    "viewAll": "View all",
+    "backToHome": "Back to home",
+    "tryAgain": "Try again",
+    "somethingWentWrong": "Something went wrong",
+    "yes": "Yes",
+    "no": "No",
+    "continue": "Continue",
+    "back": "Back",
+    "optional": "optional",
+    "required": "required",
+    "couldNotLoad": "We couldn't load this content. Please check your connection and try again.",
+    "setupNeeded": "One-time setup needed",
+    "missingIndex": "This part of the database needs an index created once in the Firebase console before it can be queried — see guide.txt Part 2.5b. This isn't a connection problem."
+  },
+  "nav": {
+    "home": "Home",
+    "shop": "Shop",
+    "about": "About",
+    "contact": "Contact",
+    "search": "Search",
+    "searchPlaceholder": "Search products...",
+    "wishlist": "Wishlist",
+    "cart": "Cart",
+    "account": "Account menu",
+    "myAccount": "My Account",
+    "myOrders": "My Orders",
+    "adminPanel": "Admin Panel",
+    "logout": "Logout",
+    "login": "Log in",
+    "signup": "Sign up",
+    "switchToLight": "Switch to light mode",
+    "switchToDark": "Switch to dark mode",
+    "language": "Language",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu"
+  },
+  "footer": {
+    "tagline": "Curated essentials for the discerning. Timeless craftsmanship, considered design, delivered with care.",
+    "shop": "Shop",
+    "allProducts": "All Products",
+    "featured": "Featured",
+    "company": "Company",
+    "aboutUs": "About Us",
+    "contactUs": "Contact Us",
+    "faq": "FAQ",
+    "legal": "Legal",
+    "privacyPolicy": "Privacy Policy",
+    "termsAndConditions": "Terms & Conditions",
+    "shippingPolicy": "Shipping Policy",
+    "returnPolicy": "Return & Refund Policy",
+    "cookiePolicy": "Cookie Policy",
+    "stayInTouch": "Stay in touch",
+    "newsletterBlurb": "New arrivals and private offers, occasionally, never spam.",
+    "emailPlaceholder": "Your email",
+    "subscribe": "Subscribe",
+    "rightsReserved": "All rights reserved."
+  },
+  "cookieBanner": {
+    "textBefore": "We use cookies to keep you signed in and remember your preferences. See our",
+    "textAfter": "to learn more.",
+    "accept": "Accept"
+  },
+  "configBanner": "Firebase isn't configured yet — copy .env.example to .env and add your project credentials (see guide.txt). Auth and data will not work until then.",
+  "home": {
+    "eyebrow": "New Season",
+    "heroTitle": "Considered luxury, made to last.",
+    "heroBody": "Mavero curates tailored apparel, leather goods, and fine accessories — each piece chosen for craftsmanship that holds up long after the season ends.",
+    "shopCollection": "Shop the Collection",
+    "curated": "Curated",
+    "featuredPieces": "Featured Pieces",
+    "explore": "Explore",
+    "shopByCategory": "Shop by Category",
+    "justIn": "Just In",
+    "newArrivals": "New Arrivals",
+    "trusted": "Trusted",
+    "testimonialsTitle": "What Our Customers Say",
+    "stayInTouch": "Stay in Touch",
+    "newsletterTitle": "New arrivals and private offers, occasionally, never spam.",
+    "noFeatured": "Featured pieces coming soon",
+    "noFeaturedBody": "Check back shortly, or browse the full collection.",
+    "browseShop": "Browse shop",
+    "testimonials": [
+      {
+        "quote": "The overcoat is the best piece of outerwear I own. The wool is heavier than anything on the high street, and it still looks new two winters on.",
+        "name": "Aisha R.",
+        "location": "London, UK"
+      },
+      {
+        "quote": "Ordered the leather duffel for a work trip and the stitching alone tells you it's built to last. Customer service was quick to answer sizing questions too.",
+        "name": "Marcus T.",
+        "location": "Toronto, Canada"
+      },
+      {
+        "quote": "I've bought three pieces from Mavero now and every one arrived exactly as photographed. Rare for online shopping at this price point.",
+        "name": "Priya K.",
+        "location": "Dubai, UAE"
+      }
+    ]
+  },
+  "auth": {
+    "welcomeBack": "Welcome back",
+    "loginSubtitle": "Log in to continue to your account.",
+    "createAccount": "Create your account",
+    "signupSubtitle": "Join Mavero for a curated, premium shopping experience.",
+    "resetTitle": "Reset your password",
+    "resetSubtitle": "Enter your email and we'll send you a link to reset it.",
+    "checkEmail": "Check your email",
+    "checkEmailBody": "We've sent password reset instructions to {{email}}. Follow the link in that email to choose a new password.",
+    "fullName": "Full name",
+    "email": "Email address",
+    "password": "Password",
+    "confirmPassword": "Confirm password",
+    "forgotPassword": "Forgot password?",
+    "login": "Log in",
+    "loggingIn": "Logging in...",
+    "createAccountButton": "Create account",
+    "creatingAccount": "Creating account...",
+    "sendResetLink": "Send reset link",
+    "sending": "Sending...",
+    "continueWithGoogle": "Continue with Google",
+    "pleaseWait": "Please wait...",
+    "or": "Or",
+    "noAccount": "Don't have an account?",
+    "haveAccount": "Already have an account?",
+    "backToLogin": "Back to login",
+    "rememberedPassword": "Remembered your password?",
+    "showPassword": "Show password",
+    "hidePassword": "Hide password",
+    "passwordStrength": {
+      "veryWeak": "Very weak",
+      "weak": "Weak",
+      "fair": "Fair",
+      "strong": "Strong",
+      "veryStrong": "Very strong"
+    }
+  },
+  "product": {
+    "shopAll": "Shop All",
+    "featured": "Featured",
+    "searchPlaceholder": "Search products...",
+    "filters": "Filters",
+    "reset": "Reset",
+    "category": "Category",
+    "price": "Price",
+    "size": "Size",
+    "color": "Color",
+    "rating": "Rating",
+    "anyRating": "Any rating",
+    "starsAndUp": "{{count}}+ stars",
+    "inStockOnly": "In stock only",
+    "onSale": "On sale",
+    "sortBy": "Sort by",
+    "sortNewest": "Newest",
+    "sortPriceAsc": "Price: Low to High",
+    "sortPriceDesc": "Price: High to Low",
+    "sortBestSelling": "Best Selling",
+    "sortRating": "Top Rated",
+    "gridView": "Grid view",
+    "listView": "List view",
+    "productsCount": "{{count}} product",
+    "productsCount_plural": "{{count}} products",
+    "noProducts": "No products found",
+    "noProductsBody": "Try adjusting your search or filters.",
+    "clearFilters": "Clear filters",
+    "loadMore": "Load more",
+    "quickAdd": "Quick add",
+    "selectOptions": "Select options",
+    "addToWishlist": "Add to wishlist",
+    "removeFromWishlist": "Remove from wishlist",
+    "outOfStock": "Out of stock",
+    "sale": "Sale",
+    "inStock": "In stock",
+    "onlyLeftInStock": "Only {{count}} left in stock",
+    "addToCart": "Add to Cart",
+    "buyNow": "Buy Now",
+    "sku": "SKU: {{sku}}",
+    "reviews": "Reviews",
+    "noReviews": "No reviews yet",
+    "noReviewsBody": "Be the first to share your thoughts on this piece.",
+    "writeReview": "Write a review",
+    "submitReview": "Submit review",
+    "submitting": "Submitting...",
+    "loginToReview": "Log in",
+    "loginToReviewBody": "to write a review.",
+    "alreadyReviewed": "You've already reviewed this product — thank you!",
+    "youMayAlsoLike": "You may also like",
+    "recentlyViewed": "Recently viewed",
+    "productNotFound": "Product not found",
+    "productNotFoundBody": "This piece may no longer be available.",
+    "backToShop": "Back to shop",
+    "loginToWishlist": "Log in to save items to your wishlist.",
+    "selectOptionsFirst": "Please select the available options.",
+    "addedToCart": "{{name}} added to cart.",
+    "reviewPlaceholder": "Share your thoughts on the fit, quality, and finish...",
+    "zoomImage": "Zoom image",
+    "closeZoomedImage": "Close zoomed image",
+    "previousImage": "Previous image",
+    "nextImage": "Next image",
+    "viewImage": "View image {{n}}",
+    "ratedOutOf5": "Rated {{value}} out of 5",
+    "starsLabel": "{{count}} star",
+    "starsLabel_plural": "{{count}} stars"
+  },
+  "wishlist": {
+    "title": "Wishlist",
+    "empty": "Your wishlist is empty",
+    "emptyBody": "Save pieces you love and come back to them anytime.",
+    "browseShop": "Browse the shop",
+    "moveToCart": "Move to cart",
+    "movedToCart": "{{name}} moved to cart."
+  },
+  "cart": {
+    "yourCart": "Your Cart",
+    "empty": "Your cart is empty",
+    "emptyBody": "Add something to your cart before checking out.",
+    "emptyBodyDrawer": "Add something beautiful to get started.",
+    "shopNow": "Shop now",
+    "subtotal": "Subtotal",
+    "shipping": "Shipping",
+    "shippingAtCheckout": "Calculated at checkout",
+    "discount": "Discount",
+    "total": "Total",
+    "viewCart": "View Cart",
+    "checkout": "Checkout",
+    "proceedToCheckout": "Proceed to Checkout",
+    "orderSummary": "Order Summary",
+    "couponCode": "Coupon code",
+    "couponPlaceholder": "e.g. WELCOME10",
+    "apply": "Apply",
+    "applying": "...",
+    "couponApplied": "{{code}} applied",
+    "couponAppliedToast": "Coupon applied.",
+    "removeCoupon": "Remove",
+    "coupon": {
+      "enterCode": "Please enter a coupon code.",
+      "invalid": "That coupon code isn't valid.",
+      "inactive": "That coupon is no longer active.",
+      "expired": "That coupon has expired.",
+      "usageLimitReached": "That coupon has reached its usage limit.",
+      "addMoreToQualify": "Add {{amount}} more to your order to use this coupon."
+    }
+  },
+  "checkout": {
+    "title": "Checkout",
+    "steps": {
+      "shipping": "Shipping",
+      "payment": "Payment",
+      "review": "Review"
+    },
+    "shippingDetails": "Shipping Details",
+    "useSavedAddress": "Use a saved address",
+    "enterNewAddress": "Enter a new address below...",
+    "fullName": "Full name",
+    "phone": "Phone number",
+    "addressLine1": "Address line 1",
+    "addressLine2": "Address line 2 (optional)",
+    "city": "City",
+    "state": "State / Province",
+    "postalCode": "Postal code",
+    "country": "Country",
+    "orderNote": "Order note (optional)",
+    "continueToPayment": "Continue to Payment",
+    "payment": "Payment",
+    "creditDebitCard": "Credit / Debit Card",
+    "cardDemoNotice": "For demonstration only — no real charge is made.",
+    "cashOnDelivery": "Cash on Delivery",
+    "codBody": "Pay in cash when your order arrives.",
+    "codConfirm": "You'll pay in cash when your order is delivered. No card details are required.",
+    "cardholderName": "Cardholder name",
+    "cardNumber": "Card number",
+    "expiry": "Expiry (MM/YY)",
+    "cvv": "CVV",
+    "reviewOrder": "Review Order",
+    "reviewYourOrder": "Review Your Order",
+    "shippingTo": "Shipping To",
+    "paymentMethod": "Payment Method",
+    "items": "Items",
+    "placeOrder": "Place Order",
+    "placingOrder": "Placing Order...",
+    "emptyCartBody": "Add something to your cart before checking out.",
+    "orderFailed": "Something went wrong placing your order. Please try again.",
+    "qty": "Qty {{count}}"
+  },
+  "orderStatus": {
+    "pending": "Pending",
+    "processing": "Processing",
+    "shipped": "Shipped",
+    "delivered": "Delivered",
+    "cancelled": "Cancelled",
+    "cancelledBody": "This order was cancelled."
+  },
+  "orders": {
+    "myOrders": "My Orders",
+    "noOrders": "No orders yet",
+    "noOrdersBody": "Once you place an order, it will show up here.",
+    "startShopping": "Start shopping",
+    "backToOrders": "Back to orders",
+    "placedOn": "Placed on {{date}}",
+    "shippingTo": "Shipping To",
+    "payment": "Payment",
+    "items": "Items",
+    "reorder": "Reorder",
+    "addingToCart": "Adding to cart...",
+    "orderNotFound": "Order not found",
+    "thankYou": "Thank you for your order",
+    "confirmationBody": "A confirmation has been sent and our team has been notified.",
+    "orderNumber": "Order Number",
+    "viewMyOrders": "View My Orders",
+    "continueShopping": "Continue Shopping",
+    "itemsCount": "{{count}} item",
+    "itemsCount_plural": "{{count}} items"
+  },
+  "account": {
+    "myAccount": "My Account",
+    "profileInformation": "Profile Information",
+    "changePassword": "Change Password",
+    "currentPassword": "Current password",
+    "newPassword": "New password",
+    "confirmNewPassword": "Confirm new password",
+    "updatePassword": "Update password",
+    "updating": "Updating...",
+    "savedAddresses": "Saved Addresses",
+    "addAddress": "Add address",
+    "saveAddress": "Save address",
+    "orderHistory": "Order History",
+    "viewAllOrders": "View all orders",
+    "itemsInCart": "You have {{count}} item waiting in your cart.",
+    "itemsInCart_plural": "You have {{count}} items waiting in your cart."
+  },
+  "legal": {
+    "about": "About Mavero",
+    "contact": "Contact Us",
+    "faq": "Frequently Asked Questions",
+    "privacy": "Privacy Policy",
+    "terms": "Terms & Conditions",
+    "shipping": "Shipping Policy",
+    "returns": "Return & Refund Policy",
+    "cookies": "Cookie Policy",
+    "stillHaveQuestion": "Still have a question?",
+    "getInTouch": "Get in touch",
+    "contactSubtitle": "Questions about an order, a product, or anything else — we read every message ourselves.",
+    "yourName": "Your name",
+    "subject": "Subject",
+    "message": "Message",
+    "sendMessage": "Send message",
+    "sendingMessage": "Sending...",
+    "email": "Email",
+    "responseTime": "Response time",
+    "responseTimeBody": "Within 1–2 business days",
+    "studio": "Studio",
+    "studioBody": "By appointment only — reach out to schedule a visit.",
+    "lastUpdated": "Last updated: August 2026"
+  },
+  "notFound": {
+    "eyebrow": "404",
+    "title": "This page has wandered off",
+    "body": "The page you're looking for doesn't exist or may have been moved. Let's get you back to something beautiful."
+  },
+  "toast": {
+    "welcomeBack": "Welcome back!",
+    "loggedOut": "You've been logged out.",
+    "welcomeToMavero": "Welcome to Mavero!",
+    "genericError": "Something went wrong. Please try again in a moment.",
+    "subscribed": "You're subscribed! Watch your inbox.",
+    "alreadySubscribed": "You're already subscribed — thank you!",
+    "couldNotSubscribe": "Couldn't subscribe right now. Please try again.",
+    "profileUpdated": "Profile updated.",
+    "couldNotUpdateProfile": "Couldn't update your profile. Please try again.",
+    "passwordUpdated": "Password updated.",
+    "addressSaved": "Address saved.",
+    "addressUpdated": "Address updated.",
+    "addressRemoved": "Address removed.",
+    "couldNotSaveAddress": "Couldn't save this address. Please try again.",
+    "couldNotRemoveAddress": "Couldn't remove this address.",
+    "messageSent": "Message sent — we'll get back to you soon.",
+    "couldNotSendMessage": "Couldn't send your message right now. Please try again.",
+    "waitBeforeResending": "Please wait a moment before sending another message.",
+    "reviewThanks": "Thanks for your review!",
+    "couldNotSubmitReview": "Couldn't submit your review. Please try again.",
+    "pleaseSelectRating": "Please select a star rating.",
+    "couldNotReorder": "Couldn't reorder right now. Please try again.",
+    "itemsAddedToCart": "{{count}} item added to cart.",
+    "itemsAddedToCart_plural": "{{count}} items added to cart.",
+    "itemsUnavailable": "{{count}} item no longer available.",
+    "itemsUnavailable_plural": "{{count}} items no longer available."
+  },
+  "validation": {
+    "nameRequired": "Please enter your full name",
+    "emailInvalid": "Enter a valid email address",
+    "passwordMin": "Password must be at least 8 characters",
+    "passwordLower": "Password must include a lowercase letter",
+    "passwordUpper": "Password must include an uppercase letter",
+    "passwordNumber": "Password must include a number",
+    "passwordsNoMatch": "Passwords do not match",
+    "passwordRequired": "Please enter your password",
+    "subjectMin": "Please add a subject",
+    "messageMin": "Message must be at least 10 characters",
+    "phoneInvalid": "Enter a valid phone number",
+    "cardNumberInvalid": "Enter a valid card number",
+    "expiryInvalid": "Enter a valid, non-expired date (MM/YY)",
+    "cvvInvalid": "Enter a valid CVV",
+    "addressLine1Required": "Please enter the street address",
+    "cityRequired": "Please enter a city",
+    "stateRequired": "Please enter a state/province",
+    "postalCodeRequired": "Please enter a postal code",
+    "countryRequired": "Please select a country",
+    "recipientNameRequired": "Please enter the recipient's name",
+    "cardholderNameRequired": "Enter the name on the card",
+    "currentPasswordRequired": "Enter your current password"
+  },
+  "admin": {
+    "nav": {
+      "dashboard": "Dashboard",
+      "products": "Products",
+      "categories": "Categories",
+      "orders": "Orders",
+      "customers": "Manage Users",
+      "coupons": "Coupons",
+      "reviews": "Reviews",
+      "backToStore": "Back to store"
+    },
+    "signedInAs": "Signed in as",
+    "dashboard": {
+      "title": "Dashboard",
+      "totalRevenue": "Total Revenue",
+      "totalOrders": "Total Orders",
+      "totalCustomers": "Total Customers",
+      "totalProducts": "Total Products",
+      "lowStock": "product low on stock",
+      "lowStock_plural": "products low on stock",
+      "salesOverTime": "Sales Over Time",
+      "ordersByStatus": "Orders by Status",
+      "topSelling": "Top-Selling Products",
+      "revenueByCategory": "Revenue by Category",
+      "recentOrders": "Recent Orders",
+      "noChartData": "No data available yet"
+    },
+    "products": {
+      "title": "Products",
+      "addProduct": "Add Product",
+      "searchPlaceholder": "Search by name or SKU...",
+      "selected": "{{count}} selected",
+      "setActive": "Set Active",
+      "setDraft": "Set Draft",
+      "noProducts": "No products found",
+      "noProductsBody": "Try a different search, or add a new product.",
+      "product": "Product",
+      "category": "Category",
+      "price": "Price",
+      "stock": "Stock",
+      "status": "Status",
+      "featured": "Featured",
+      "confirmDelete": "Delete this product? This cannot be undone.",
+      "confirmBulkDelete": "Delete {{count}} product(s)? This cannot be undone.",
+      "deleted": "Product deleted.",
+      "couldNotDelete": "Couldn't delete this product."
+    },
+    "productForm": {
+      "editTitle": "Edit Product",
+      "newTitle": "New Product",
+      "backToProducts": "Back to products",
+      "images": "Images",
+      "productId": "Product ID",
+      "name": "Name",
+      "description": "Description",
+      "price": "Price ($)",
+      "salePrice": "Sale price ($, optional)",
+      "category": "Category",
+      "selectEllipsis": "Select...",
+      "tags": "Tags (comma-separated)",
+      "stockQuantity": "Stock quantity",
+      "variants": "Variants (size / color / stock)",
+      "addVariant": "Add variant",
+      "noVariants": "No variants — this product uses the flat stock quantity above.",
+      "size": "Size",
+      "color": "Color",
+      "stock": "Stock",
+      "status": "Status",
+      "statusActive": "Active",
+      "statusDraft": "Draft",
+      "statusOutOfStock": "Out of stock",
+      "featuredProduct": "Featured product",
+      "saveChanges": "Save changes",
+      "createProduct": "Create product",
+      "imageRequired": "Please add at least one product image.",
+      "updated": "Product updated.",
+      "created": "Product created.",
+      "couldNotSave": "Couldn't save this product. Please try again."
+    },
+    "categories": {
+      "title": "Categories",
+      "addCategory": "Add Category",
+      "name": "Name",
+      "description": "Description",
+      "confirmDelete": "Delete this category? Products in it will keep the old category value.",
+      "nameRequired": "Category name is required.",
+      "imageRequired": "Please add a category image.",
+      "saved": "Category saved.",
+      "deleted": "Category deleted.",
+      "couldNotSave": "Couldn't save this category.",
+      "couldNotDelete": "Couldn't delete this category.",
+      "saveCategory": "Save category"
+    },
+    "orders": {
+      "title": "Orders",
+      "searchPlaceholder": "Search by order #, name, or email...",
+      "allStatuses": "All statuses",
+      "noOrders": "No orders found",
+      "noOrdersBody": "Try a different filter or search.",
+      "order": "Order",
+      "customer": "Customer",
+      "date": "Date",
+      "total": "Total",
+      "status": "Status",
+      "statusUpdated": "Order status updated.",
+      "couldNotUpdateStatus": "Couldn't update order status.",
+      "shippingAddress": "Shipping Address"
+    },
+    "customers": {
+      "title": "Manage Users",
+      "searchPlaceholder": "Search by name or email...",
+      "customer": "Customer",
+      "role": "Role",
+      "orders": "Orders",
+      "totalSpent": "Total Spent",
+      "disabled": "Disabled",
+      "enable": "Enable",
+      "disable": "Disable",
+      "confirmDisable": "Disable {{email}}?",
+      "confirmEnable": "Re-enable {{email}}?",
+      "statusUpdated": "{{email}} {{status}}.",
+      "couldNotUpdateStatus": "Couldn't update this account.",
+      "name": "Name",
+      "phone": "Phone",
+      "updated": "{{email}} updated.",
+      "couldNotUpdate": "Couldn't update this user.",
+      "selected": "{{count}} selected",
+      "bulkDisable": "Disable selected",
+      "bulkEnable": "Enable selected",
+      "confirmBulkDisable": "Disable {{count}} selected account(s)?",
+      "confirmBulkEnable": "Re-enable {{count}} selected account(s)?",
+      "bulkUpdated": "{{count}} account(s) updated.",
+      "status": "Status",
+      "active": "Active",
+      "editUserTitle": "Edit user",
+      "adminAccess": "Admin access",
+      "confirmDisableTitle": "Disable account",
+      "confirmEnableTitle": "Enable account",
+      "confirmBulkDisableTitle": "Disable accounts",
+      "confirmBulkEnableTitle": "Enable accounts"
+    },
+    "coupons": {
+      "title": "Coupons",
+      "addCoupon": "Add Coupon",
+      "code": "Code",
+      "type": "Type",
+      "percentageOff": "Percentage off",
+      "flatOff": "Flat amount off",
+      "percentOff": "Percent off",
+      "amountOff": "Amount off ($)",
+      "minOrderValue": "Min. order value ($)",
+      "usageLimit": "Usage limit (optional)",
+      "expiryDate": "Expiry date (optional)",
+      "active": "Active",
+      "used": "Used {{count}}",
+      "saveCoupon": "Save coupon",
+      "codeValueRequired": "Code and value are required.",
+      "created": "Coupon created.",
+      "updated": "Coupon updated.",
+      "deleted": "Coupon deleted.",
+      "confirmDelete": "Delete this coupon?",
+      "couldNotCreate": "Couldn't create this coupon.",
+      "couldNotUpdate": "Couldn't update this coupon.",
+      "couldNotDelete": "Couldn't delete this coupon.",
+      "inactive": "Inactive",
+      "off": "off"
+    },
+    "reviews": {
+      "title": "Reviews",
+      "noReviews": "No reviews yet",
+      "confirmDelete": "Delete this review?",
+      "deleted": "Review deleted.",
+      "couldNotDelete": "Couldn't delete this review."
+    },
+    "pagination": {
+      "pageOf": "Page {{page}} of {{totalPages}}",
+      "previous": "Previous page",
+      "next": "Next page"
+    }
+  },
+  "pages": {
+    "about": {
+      "intro": "Mavero began with a simple frustration: it had become genuinely difficult to buy something well made. Fast fashion crowded out craftsmanship, and the pieces that were built to last were scattered across a dozen boutiques, each with its own story to chase down. We started Mavero to bring that search to one place — a single, considered collection of apparel, footwear, leather goods, and fine accessories, chosen because they hold up, not because they trend.",
+      "lookFor": {
+        "heading": "What we look for",
+        "body": "Every piece in the Mavero collection is selected against the same short list: materials that age well rather than wear out, construction that could be repaired rather than replaced, and design that doesn't chase a season. That's why you'll find full-grain leather instead of bonded, Goodyear welts instead of glued soles, and two-ply cashmere instead of a single thin layer. It costs more to make things this way. We think it costs less over the years you'll actually own them."
+      },
+      "howWeWork": {
+        "heading": "How we work",
+        "body": "We're a small, independent team. We photograph and describe every product ourselves, we answer our own customer emails, and we read every review that comes in — good or not. If something isn't right with an order, we'd rather hear about it directly and fix it than have you write it off quietly. You can reach us anytime through our Contact page."
+      },
+      "whereHeaded": {
+        "heading": "Where we're headed",
+        "body": "Mavero is still young, and the collection grows slowly and deliberately — we'd rather add ten pieces we believe in each season than a hundred we don't. Thank you for being part of that from early on."
+      }
+    },
+    "faq": {
+      "sections": [
+        {
+          "heading": "Orders & Shipping",
+          "items": [
+            {
+              "q": "How long does shipping take?",
+              "a": "Standard shipping typically arrives within 5–8 business days. Expedited options are shown at checkout. See our Shipping Policy for full details on carriers and international timelines."
+            },
+            {
+              "q": "Can I change or cancel my order after placing it?",
+              "a": "If your order hasn't shipped yet, contact us right away through the Contact page and we'll do our best to adjust it. Once an order ships, it can no longer be changed or cancelled."
+            },
+            {
+              "q": "Do you ship internationally?",
+              "a": "Yes — international shipping is calculated at checkout based on your address. Customs fees and import duties, if any, are the responsibility of the recipient."
+            }
+          ]
+        },
+        {
+          "heading": "Returns & Refunds",
+          "items": [
+            {
+              "q": "What's your return policy?",
+              "a": "Unworn items in original condition can be returned within 30 days of delivery for a full refund. See our Return & Refund Policy for the complete process."
+            },
+            {
+              "q": "How long do refunds take to process?",
+              "a": "Once we receive your return, refunds are processed within 5–7 business days back to your original payment method."
+            }
+          ]
+        },
+        {
+          "heading": "Products & Sizing",
+          "items": [
+            {
+              "q": "How do I know what size to order?",
+              "a": "Each product page lists available sizes and disables anything currently out of stock. If you're between sizes, our Contact page is the fastest way to ask for guidance on a specific piece."
+            },
+            {
+              "q": "Are the product photos accurate?",
+              "a": "Yes — every product photo is of the actual item we ship, not a stock image. Colors can vary slightly by monitor, but we don't use styled photography that misrepresents the product."
+            }
+          ]
+        },
+        {
+          "heading": "Account & Payment",
+          "items": [
+            {
+              "q": "Do I need an account to check out?",
+              "a": "Yes — creating a free account lets us keep your order history, saved addresses, and wishlist in one place, and it's what lets you track an order after it ships."
+            },
+            {
+              "q": "Is Cash on Delivery available everywhere?",
+              "a": "Cash on Delivery is offered as a payment option at checkout alongside card payment; availability can depend on your delivery address."
+            }
+          ]
+        }
+      ]
+    },
+    "privacy": {
+      "intro": "This policy explains what information Mavero collects when you use our site, why we collect it, who we share it with, and the choices you have.",
+      "collect": {
+        "heading": "Information we collect",
+        "accountInfo": "Account information: name, email address, and (optionally) phone number and saved addresses, when you create an account.",
+        "orderInfo": "Order information: shipping address, items purchased, and order history. We do not process or store real payment card numbers — checkout on this site uses a simulated payment flow for demonstration purposes.",
+        "contentSubmitted": "Content you submit: product reviews, contact form messages, and newsletter sign-ups.",
+        "usageInfo": "Usage information: basic device/browser information and locally-stored preferences (theme, language, cart, recently viewed items) via cookies and browser storage."
+      },
+      "howWeUse": {
+        "heading": "How we use your information",
+        "body": "We use your information to create and manage your account, process and fulfil orders, respond to support requests, and — only if you opt in — send newsletter emails. We do not sell your personal information."
+      },
+      "thirdParty": {
+        "heading": "Third-party services we use",
+        "intro": "Mavero is built on a small number of trusted third-party services that process data on our behalf:",
+        "firebase": "Firebase (Google): handles account authentication and stores account, order, review, and catalog data in Firebase Authentication and Cloud Firestore.",
+        "cloudinary": "Cloudinary: hosts product and category images.",
+        "closing": "Each of these providers has its own privacy practices governing the infrastructure they operate; we only share the minimum data needed for them to perform their function for us."
+      },
+      "rights": {
+        "heading": "Your rights",
+        "body": "You can review and update most of your account information at any time from your Account page. You may request a copy of your data, request that we delete your account and associated data, or ask us any question about how your information is handled, by reaching out through our Contact page."
+      },
+      "retention": {
+        "heading": "Data retention",
+        "body": "We retain account and order information for as long as your account is active, or as needed to comply with legal obligations, resolve disputes, and enforce our agreements."
+      },
+      "changes": {
+        "heading": "Changes to this policy",
+        "body": "We may update this policy from time to time. Material changes will be reflected by updating the date at the top of this page."
+      }
+    },
+    "terms": {
+      "intro": "These Terms & Conditions govern your use of the Mavero website and any purchases made through it. By creating an account or placing an order, you agree to these terms.",
+      "accounts": {
+        "heading": "Accounts",
+        "body": "You're responsible for keeping your account credentials confidential and for all activity that happens under your account. Let us know right away through our Contact page if you believe your account has been accessed without your permission."
+      },
+      "ordersPricing": {
+        "heading": "Orders & pricing",
+        "body": "All prices are listed in USD and are subject to change without notice. We reserve the right to limit quantities, refuse an order, or cancel an order in the case of a pricing or stock error, in which case we'll notify you and issue a full refund for any amount charged."
+      },
+      "payment": {
+        "heading": "Payment",
+        "body": "This site offers a simulated card-payment flow for demonstration purposes alongside a Cash on Delivery option — no real card transaction is processed through this website. Card details entered at checkout are validated for format only and are not stored or transmitted to a payment processor."
+      },
+      "productDescriptions": {
+        "heading": "Product descriptions",
+        "body": "We do our best to ensure product descriptions, images, and availability are accurate. Occasionally an item may be listed in error or go out of stock between the time you view it and the time you order — if that happens, we'll reach out before fulfilling the affected part of your order."
+      },
+      "intellectualProperty": {
+        "heading": "Intellectual property",
+        "body": "All content on this site — including product photography, copy, and the Mavero name and logo — belongs to Mavero and may not be reproduced without permission."
+      },
+      "liability": {
+        "heading": "Limitation of liability",
+        "body": "Mavero is provided on an \"as is\" basis. To the fullest extent permitted by law, we are not liable for any indirect, incidental, or consequential damages arising from your use of the site."
+      },
+      "governingLaw": {
+        "heading": "Governing law",
+        "body": "These terms are governed by the laws of the jurisdiction in which Mavero operates, without regard to conflict-of-law principles."
+      },
+      "relatedPolicies": {
+        "heading": "Related policies",
+        "body": "Please also review our related policies below, which are incorporated into these terms by reference."
+      }
+    },
+    "shipping": {
+      "processingTime": {
+        "heading": "Processing time",
+        "body": "Orders are typically processed within 1–2 business days of being placed. You'll receive an update as your order moves through processing, shipping, and delivery — you can check its status anytime from My Orders."
+      },
+      "shippingTimes": {
+        "heading": "Shipping times",
+        "standard": "Standard shipping: 5–8 business days",
+        "expedited": "Expedited shipping: 2–3 business days",
+        "international": "International shipping: 7–14 business days, depending on destination",
+        "note": "These are estimates, not guarantees — carrier delays, customs processing, and remote destinations can extend delivery times beyond the ranges above."
+      },
+      "shippingCosts": {
+        "heading": "Shipping costs",
+        "body": "Shipping cost is calculated at checkout based on your delivery address and the shipping method you choose, before you confirm your order."
+      },
+      "internationalOrders": {
+        "heading": "International orders",
+        "body": "International customers are responsible for any customs duties, import taxes, or fees charged by their destination country. These are not included in the order total shown at checkout."
+      },
+      "orderTracking": {
+        "heading": "Order tracking",
+        "body": "As your order status updates, you'll be able to follow its progress through a simple status tracker on the order detail page — from pending, to processing, to shipped, to delivered."
+      },
+      "questions": {
+        "heading": "Questions about your shipment",
+        "body": "If your order hasn't arrived within the expected window, contact us with your order number and we'll look into it."
+      }
+    },
+    "returns": {
+      "thirtyDay": {
+        "heading": "30-day returns",
+        "body": "We want you to be genuinely happy with what you order. If something isn't right, you can return it within 30 days of delivery for a full refund, provided the item is unworn, unwashed, and in its original condition with tags attached."
+      },
+      "howToStart": {
+        "heading": "How to start a return",
+        "step1": "Find the order in My Orders and note the order number.",
+        "step2": "Reach out through our Contact page with your order number and the item(s) you'd like to return.",
+        "step3": "We'll confirm the return and provide instructions for sending the item back."
+      },
+      "refunds": {
+        "heading": "Refunds",
+        "body": "Once we receive and inspect your return, we'll process your refund to the original payment method within 5–7 business days. You'll receive a confirmation once it's issued."
+      },
+      "exchanges": {
+        "heading": "Exchanges",
+        "body": "If you need a different size or color, the fastest option is to return the original item for a refund and place a new order for the piece you'd prefer — this avoids the wait for a back-and-forth exchange shipment."
+      },
+      "nonReturnable": {
+        "heading": "Non-returnable items",
+        "body": "For hygiene reasons, earrings and other pierced jewelry cannot be returned once the packaging seal has been broken, unless the item arrived defective."
+      },
+      "damaged": {
+        "heading": "Damaged or incorrect items",
+        "body": "If an item arrives damaged or isn't what you ordered, let us know within 7 days of delivery with a photo, and we'll arrange a replacement or refund at no cost to you."
+      }
+    },
+    "cookies": {
+      "whatCovers": {
+        "heading": "What this covers",
+        "body": "Mavero uses browser storage (cookies and, more often, localStorage) to keep the site working smoothly across visits. This page explains what we store and why."
+      },
+      "whatWeStore": {
+        "heading": "What we store",
+        "session": "Sign-in session: Firebase Authentication keeps you signed in between visits.",
+        "theme": "Theme preference: your light/dark mode choice.",
+        "language": "Language preference: your selected site language.",
+        "guestCart": "Guest cart: items in your cart before you sign in, so nothing is lost.",
+        "recentlyViewed": "Recently viewed products: a short list of products you've looked at, shown on product pages.",
+        "consent": "Cookie consent: whether you've dismissed the cookie banner."
+      },
+      "whatWeDont": {
+        "heading": "What we don't do",
+        "body": "We don't use third-party advertising or cross-site tracking cookies. Everything listed above exists to make the site function the way you'd expect, not to track you across other websites."
+      },
+      "managing": {
+        "heading": "Managing storage",
+        "body": "Most of this information is stored client-side in your browser. You can clear it at any time through your browser's settings — note that doing so will sign you out, reset your theme/language preferences, and clear your guest cart."
+      }
+    }
+  }
+}
