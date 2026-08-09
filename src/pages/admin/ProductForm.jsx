@@ -88,7 +88,9 @@ export default function ProductForm() {
         size: v.size || null,
         color: v.color || null,
         stock: Number(v.stock) || 0,
-        sku: `${productId}-${v.color || "one"}-${v.size || "os"}`.toUpperCase().replace(/\s+/g, ""),
+        sku: `${productId}-${v.color || "one"}-${v.size || "os"}`
+          .toUpperCase()
+          .replace(/[\s/]+/g, ""),
       }));
       const computedStock = variants.length
         ? variants.reduce((sum, v) => sum + v.stock, 0)
