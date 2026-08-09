@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useTranslation } from "react-i18next";
@@ -13,8 +13,11 @@ import PasswordStrengthMeter from "../components/common/PasswordStrengthMeter";
 
 export default function Signup() {
   const { t } = useTranslation();
-  const { signup, loginWithGoogle } = useAuth();
+  const { user, signup, loginWithGoogle } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from;
+  const fromPath = from?.pathname || "/";
   const [showPassword, setShowPassword] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [googleSubmitting, setGoogleSubmitting] = useState(false);
@@ -28,12 +31,17 @@ export default function Signup() {
 
   const password = watch("password");
 
+  // See Login.jsx for why this waits on `user` instead of navigating
+  // immediately after the signup promise resolves.
+  useEffect(() => {
+    if (user) navigate(fromPath, { replace: true });
+  }, [user, fromPath, navigate]);
+
   const onSubmit = async (data) => {
     setSubmitting(true);
     try {
       await signup(data.name, data.email, data.password);
       toast.success(t("toast.welcomeToMavero"));
-      navigate("/");
     } catch (error) {
       toast.error(getAuthErrorMessage(error));
     } finally {
@@ -46,7 +54,6 @@ export default function Signup() {
     try {
       await loginWithGoogle();
       toast.success(t("toast.welcomeBack"));
-      navigate("/");
     } catch (error) {
       toast.error(getAuthErrorMessage(error));
     } finally {
@@ -138,7 +145,11 @@ export default function Signup() {
 
         <p className="mt-8 text-center text-sm text-charcoal-400 dark:text-ivory-300">
           {t("auth.haveAccount")}{" "}
-          <Link to="/login" className="text-gold-700 hover:underline dark:text-gold-400">
+          <Link
+            to="/login"
+            state={from ? { from } : undefined}
+            className="text-gold-700 hover:underline dark:text-gold-400"
+          >
             {t("nav.login")}
           </Link>
         </p>

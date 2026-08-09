@@ -290,26 +290,38 @@ export default function Navbar() {
                     to={link.to}
                     end={link.to === "/"}
                     onClick={() => setMobileOpen(false)}
-                    className="label-uppercase text-base"
+                    className={({ isActive }) =>
+                      `label-uppercase text-base transition-colors duration-200 ease-refined ${
+                        isActive ? "text-gold-600 dark:text-gold-400" : ""
+                      }`
+                    }
                   >
                     {link.label}
                   </NavLink>
                 ))}
-                <Link
+                <NavLink
                   to="/wishlist"
                   onClick={() => setMobileOpen(false)}
-                  className="label-uppercase text-base"
+                  className={({ isActive }) =>
+                    `label-uppercase text-base transition-colors duration-200 ease-refined ${
+                      isActive ? "text-gold-600 dark:text-gold-400" : ""
+                    }`
+                  }
                 >
                   {t("nav.wishlist")}
-                </Link>
+                </NavLink>
                 {isAdmin && (
-                  <Link
+                  <NavLink
                     to="/admin"
                     onClick={() => setMobileOpen(false)}
-                    className="label-uppercase text-base text-gold-700 dark:text-gold-400"
+                    className={({ isActive }) =>
+                      `label-uppercase text-base transition-colors duration-200 ease-refined ${
+                        isActive ? "text-gold-600 dark:text-gold-400" : ""
+                      }`
+                    }
                   >
                     {t("nav.adminPanel")}
-                  </Link>
+                  </NavLink>
                 )}
               </nav>
             </div>

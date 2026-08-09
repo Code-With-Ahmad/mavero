@@ -93,7 +93,7 @@ export default function ProductCard({ product, rating, view = "grid" }) {
         )}
       </div>
 
-      <div className={`flex flex-col gap-1.5 ${view === "list" ? "flex-1 py-2" : "pt-4"}`}>
+      <div className={`flex flex-col gap-1.5 ${view === "list" ? "flex-1 py-2 pe-3" : "px-3 pb-4 pt-4"}`}>
         <p className="label-uppercase text-[11px] text-charcoal-300 dark:text-ivory-300">
           {product.category?.replace(/-/g, " ")}
         </p>

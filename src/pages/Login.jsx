@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -12,10 +12,11 @@ import FormField from "../components/common/FormField";
 
 export default function Login() {
   const { t } = useTranslation();
-  const { login, loginWithGoogle } = useAuth();
+  const { user, login, loginWithGoogle } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
-  const from = location.state?.from?.pathname || "/";
+  const from = location.state?.from;
+  const fromPath = from?.pathname || "/";
 
   const [showPassword, setShowPassword] = useState(false);
   const [submitting, setSubmitting] = useState(false);
@@ -27,12 +28,20 @@ export default function Login() {
     formState: { errors },
   } = useForm({ resolver: zodResolver(getLoginSchema(t)) });
 
+  // Navigate only once AuthContext's `user` actually updates, not right
+  // after the sign-in promise resolves — that promise settles before the
+  // separate onAuthStateChanged listener has updated context state, so
+  // navigating immediately can land on a protected route before it sees
+  // `user`, bouncing straight back to /login.
+  useEffect(() => {
+    if (user) navigate(fromPath, { replace: true });
+  }, [user, fromPath, navigate]);
+
   const onSubmit = async (data) => {
     setSubmitting(true);
     try {
       await login(data.email, data.password);
       toast.success(t("toast.welcomeBack"));
-      navigate(from, { replace: true });
     } catch (error) {
       toast.error(getAuthErrorMessage(error));
     } finally {
@@ -45,7 +54,6 @@ export default function Login() {
     try {
       await loginWithGoogle();
       toast.success(t("toast.welcomeBack"));
-      navigate(from, { replace: true });
     } catch (error) {
       toast.error(getAuthErrorMessage(error));
     } finally {
@@ -126,7 +134,11 @@ export default function Login() {
 
         <p className="mt-8 text-center text-sm text-charcoal-400 dark:text-ivory-300">
           {t("auth.noAccount")}{" "}
-          <Link to="/signup" className="text-gold-700 hover:underline dark:text-gold-400">
+          <Link
+            to="/signup"
+            state={from ? { from } : undefined}
+            className="text-gold-700 hover:underline dark:text-gold-400"
+          >
             {t("nav.signup")}
           </Link>
         </p>
